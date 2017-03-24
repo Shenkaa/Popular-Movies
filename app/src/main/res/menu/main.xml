@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sort_order"
+        android:icon="@drawable/ic_action_sort_1"
+        android:orderInCategory="1"
+        android:title="@string/action_sort_order"
+        app:showAsAction="always" >
+
+        <!-- sort submenu -->
+        <menu>
+            <item
+                android:id="@+id/sort_order_popular"
+                android:title="@string/sort_order_f_popular"
+                android:icon="@drawable/ic_trending_up"
+                android:orderInCategory="1"/>
+
+            <item
+                android:id="@+id/sort_order_top_rated"
+                android:title="@string/sort_order_f_top_rated"
+                android:icon="@drawable/ic_star"
+                android:orderInCategory="2"/>
+        </menu>
+    </item>
+
+</menu>

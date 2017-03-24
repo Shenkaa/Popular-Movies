@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+
+    <!-- activity_main -->
+    <string name="error_message">
+        An error has occurred. Please check your internet connection and try again!
+    </string>
+
+    <!-- main menu -->
+    <string name="action_sort_order">Sort</string>
+    <string name="sort_order_f_popular">Most Popular</string>
+    <string name="sort_order_f_top_rated">Top Rated</string>
+    <string name="sort_order_popular">popular</string>
+    <string name="sort_order_top_rated">top_rated</string>
+
+    <!-- activity_detail -->
+    <string name="title_activity_detail">Movie Details</string>
+    <string name="action_settings">Settings</string>
+    <string name="movie_plot">Plot</string>
+
+    <!-- activity_detail example -->
+    <string name="ex_title">The Lego Batman Movie</string>
+    <string name="ex_release">09.02.2017</string>
+    <string name="ex_rating">7.2</string>
+    <string name="ex_plot">Plot</string>
+    <string name="ex_description">
+        LEGO-Batman erlebt nach seinem ersten Leinwand-Auftritt in "The LEGO Movie"
+        nun ein Solo-Abenteuer, in dem es um die Frage geht: Kann Batman glücklich sein?
+    </string>
+
+</resources>

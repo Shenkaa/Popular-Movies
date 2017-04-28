@@ -1,4 +1,4 @@
-package com.udacity.shenka.popularmovies;
+package eu.ramich.popularmovies;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,10 +13,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.udacity.shenka.popularmovies.data.model.Movie;
-import com.udacity.shenka.popularmovies.utilities.NetworkUtils;
-import com.udacity.shenka.popularmovies.utilities.PopularMoviesUtils;
-import com.udacity.shenka.popularmovies.utilities.TMDbJsonUtils;
+import eu.ramich.popularmovies.data.model.Movie;
+import eu.ramich.popularmovies.utilities.NetworkUtils;
+import eu.ramich.popularmovies.utilities.PopularMoviesUtils;
+import eu.ramich.popularmovies.utilities.TMDbJsonUtils;
 
 import java.net.URL;
 import java.util.ArrayList;

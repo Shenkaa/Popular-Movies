@@ -1,9 +1,9 @@
-package com.udacity.shenka.popularmovies.utilities;
+package eu.ramich.popularmovies.utilities;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.udacity.shenka.popularmovies.data.model.Movie;
+import eu.ramich.popularmovies.data.model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.udacity.shenka.popularmovies.utilities;
+package eu.ramich.popularmovies.utilities;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;

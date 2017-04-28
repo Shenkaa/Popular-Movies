@@ -1,4 +1,4 @@
-package com.udacity.shenka.popularmovies;
+package eu.ramich.popularmovies;
 
 import org.junit.Test;
 

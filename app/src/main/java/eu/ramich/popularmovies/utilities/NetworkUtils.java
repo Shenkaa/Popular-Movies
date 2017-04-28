@@ -1,9 +1,9 @@
-package com.udacity.shenka.popularmovies.utilities;
+package eu.ramich.popularmovies.utilities;
 
 import android.net.Uri;
 import android.util.Log;
 
-import com.udacity.shenka.popularmovies.BuildConfig;
+import eu.ramich.popularmovies.BuildConfig;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package com.udacity.shenka.popularmovies;
+package eu.ramich.popularmovies;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.udacity.shenka.popularmovies", appContext.getPackageName());
+        assertEquals("eu.ramich.popularmovies", appContext.getPackageName());
     }
 }

@@ -6,7 +6,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.udacity.shenka.popularmovies"
+        applicationId "eu.ramich.popularmovies"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1

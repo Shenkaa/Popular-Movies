@@ -1,4 +1,4 @@
-package com.udacity.shenka.popularmovies;
+package eu.ramich.popularmovies;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.udacity.shenka.popularmovies.data.model.Movie;
-import com.udacity.shenka.popularmovies.utilities.NetworkUtils;
-import com.udacity.shenka.popularmovies.utilities.PopularMoviesUtils;
+import eu.ramich.popularmovies.data.model.Movie;
+import eu.ramich.popularmovies.utilities.NetworkUtils;
+import eu.ramich.popularmovies.utilities.PopularMoviesUtils;
 
 import java.util.Locale;
 

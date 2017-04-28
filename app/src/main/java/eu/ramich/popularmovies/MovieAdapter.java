@@ -1,4 +1,4 @@
-package com.udacity.shenka.popularmovies;
+package eu.ramich.popularmovies;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.udacity.shenka.popularmovies.data.model.Movie;
-import com.udacity.shenka.popularmovies.utilities.NetworkUtils;
-import com.udacity.shenka.popularmovies.utilities.PopularMoviesUtils;
+import eu.ramich.popularmovies.data.model.Movie;
+import eu.ramich.popularmovies.utilities.NetworkUtils;
+import eu.ramich.popularmovies.utilities.PopularMoviesUtils;
 
 import java.util.List;
 

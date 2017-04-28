@@ -1,3 +1,5 @@
+.DS_Store
+
 # Built application files
 *.apk
 *.ap_
@@ -12,6 +14,9 @@
 bin/
 gen/
 out/
+
+# Libraries used by the app
+/libs
 
 # Gradle files
 .gradle/
@@ -34,11 +39,7 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/dictionaries
-.idea/libraries
+.idea/
 
 # Keystore files
 *.jks
@@ -53,7 +54,4 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
-
-#
-.DS_Store
 

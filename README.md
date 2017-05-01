@@ -21,4 +21,6 @@ TMDbKeyProp=[YOUR_API_KEY]
 
 * App icon generated with [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html)
 
+## License
 
+Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)

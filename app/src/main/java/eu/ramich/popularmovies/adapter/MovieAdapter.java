@@ -1,6 +1,7 @@
-package eu.ramich.popularmovies;
+package eu.ramich.popularmovies.adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,18 +10,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import eu.ramich.popularmovies.data.model.Movie;
-import eu.ramich.popularmovies.utilities.NetworkUtils;
-import eu.ramich.popularmovies.utilities.PopularMoviesUtils;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import eu.ramich.popularmovies.R;
+import eu.ramich.popularmovies.ui.MoviesFragment;
+import eu.ramich.popularmovies.utilities.NetworkUtils;
+import eu.ramich.popularmovies.utilities.PopularMoviesUtils;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder> {
 
-    private List<Movie> movieList;
+    private Cursor mCursor;
     private final MovieAdapterOnClickHandler mClickHandler;
 
 
@@ -40,33 +40,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     @Override
     public void onBindViewHolder(MovieAdapterViewHolder holder, int position) {
-        Movie movie = movieList.get(position);
+        mCursor.moveToPosition(position);
         Picasso.with(holder.moviePoster.getContext())
-                .load(NetworkUtils.buildPosterURL(movie.getPosterPath(),
+                .load(NetworkUtils.buildPosterUrl(mCursor.getString(MoviesFragment.INDEX_POSTER_PATH),
                         PopularMoviesUtils.getPosterWidth(true)).toString())
+                .placeholder(R.drawable.ic_image)
                 .into(holder.moviePoster);
     }
 
     @Override
     public int getItemCount() {
-        if (movieList != null) {
-            return movieList.size();
+        if (mCursor != null) {
+            return mCursor.getCount();
         }
         return 0;
     }
 
-    public List<Movie> getMovieList() {
-        return movieList;
-    }
-
-    public void setMovieList(List<Movie> movieList) {
-        this.movieList = movieList;
+    public void swapCursor(Cursor newCursor) {
+        mCursor = newCursor;
         notifyDataSetChanged();
     }
 
 
     public interface MovieAdapterOnClickHandler {
-        void onClick(Movie movie);
+        void onClick(int movieId);
     }
 
     public class MovieAdapterViewHolder extends RecyclerView.ViewHolder
@@ -83,8 +80,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            Movie movie = movieList.get(adapterPosition);
-            mClickHandler.onClick(movie);
+            mCursor.moveToPosition(adapterPosition);
+            int movieId = mCursor.getInt(MoviesFragment.INDEX_MOVIE_ID);
+            mClickHandler.onClick(movieId);
         }
     }
 }

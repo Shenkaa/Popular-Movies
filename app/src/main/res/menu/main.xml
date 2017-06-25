@@ -7,22 +7,11 @@
         android:icon="@drawable/ic_action_sort_1"
         android:orderInCategory="1"
         android:title="@string/action_sort_order"
-        app:showAsAction="always" >
+        app:showAsAction="ifRoom" />
 
-        <!-- sort submenu -->
-        <menu>
-            <item
-                android:id="@+id/sort_order_popular"
-                android:title="@string/sort_order_f_popular"
-                android:icon="@drawable/ic_trending_up"
-                android:orderInCategory="1"/>
-
-            <item
-                android:id="@+id/sort_order_top_rated"
-                android:title="@string/sort_order_f_top_rated"
-                android:icon="@drawable/ic_star"
-                android:orderInCategory="2"/>
-        </menu>
-    </item>
+    <item
+        android:id="@+id/action_refresh"
+        app:showAsAction="never"
+        android:title="@string/action_refresh" />
 
 </menu>

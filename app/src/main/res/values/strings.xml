@@ -1,28 +1,47 @@
 <resources>
     <string name="app_name">Popular Movies</string>
 
-    <!-- activity_main -->
-    <string name="error_message">
-        An error has occurred. Please check your internet connection and try again!
-    </string>
+    <string name="content_authority">eu.ramich.popularmovies</string>
 
-    <!-- main menu -->
+    <!-- content description -->
+    <string name="cd_movie_poster">Movie Poster</string>
+    <string name="cd_movie_backdrop">Movie Backdrop</string>
+    <string name="cd_movie_avg_rating">Average Rating</string>
+    <string name="cd_trailer_thumbnail">Trailer Thumbnail</string>
+    <string name="cd_show_less">Show less</string>
+
+    <!-- menu -->
     <string name="action_sort_order">Sort</string>
-    <string name="sort_order_f_popular">Most Popular</string>
-    <string name="sort_order_f_top_rated">Top Rated</string>
-    <string name="sort_order_popular">popular</string>
-    <string name="sort_order_top_rated">top_rated</string>
+    <string name="action_refresh">Refresh</string>
+
+    <string name="sort_order_key" translatable="false">sort_order</string>
+    <string name="sort_order_label">Sort by</string>
+
+    <string name="sort_order__popular_key" translatable="false">popular</string>
+    <string name="sort_order__popular_label">Most Popular</string>
+    <string name="sort_order__top_rated_key" translatable="false">top_rated</string>
+    <string name="sort_order__top_rated_label">Top Rated</string>
+    <string name="sort_order__favorite_key" translatable="false">favorite</string>
+    <string name="sort_order__favorite_label">My Favorites</string>
+
+    <!-- snackbar -->
+    <string name="sb_dismiss">Dismiss</string>
+    <string name="sb_offline">Offline</string>
 
     <!-- activity_detail -->
     <string name="title_activity_detail">Movie Details</string>
     <string name="action_settings">Settings</string>
-    <string name="movie_plot">Plot</string>
+    <string name="movie_trailer">Trailer</string>
+    <string name="movie_reviews">Reviews</string>
+
+    <string name="favorite_add">Added to Favorites</string>
+    <string name="favorite_remove">Removed from Favorites</string>
+
 
     <!-- activity_detail example -->
     <string name="ex_title">The Lego Batman Movie</string>
     <string name="ex_release">09.02.2017</string>
     <string name="ex_rating">7.2</string>
-    <string name="ex_plot">Plot</string>
     <string name="ex_description">
         LEGO-Batman erlebt nach seinem ersten Leinwand-Auftritt in "The LEGO Movie"
         nun ein Solo-Abenteuer, in dem es um die Frage geht: Kann Batman glücklich sein?

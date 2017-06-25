@@ -26,11 +26,15 @@ public class PopularMoviesUtils {
         return DateFormat.getDateInstance(DateFormat.LONG).format(date);
     }
 
-    public static String getPosterWidth(boolean poster) {
-        int displayWidth = getDisplaySize().widthPixels;
-        int displayHeight = getDisplaySize().heightPixels;
+    public static String getCurrentTimestamp() {
+        Long ts = System.currentTimeMillis()/1000;
+        return ts.toString();
+    }
 
-//        Log.v(TAG, "DisplaySize: " + displayHeight + "x" + displayWidth);
+    public static String getPosterWidth(boolean poster) {
+        DisplayMetrics dm = getDisplayMetrics();
+        int displayWidth = dm.widthPixels;
+        int displayHeight = dm.heightPixels;
 
         if (displayWidth > displayHeight) {
             displayWidth = displayHeight;
@@ -59,13 +63,28 @@ public class PopularMoviesUtils {
 
     }
 
+    public static boolean isTablet() {
+        DisplayMetrics dm = getDisplayMetrics();
+        if (dm.widthPixels / dm.density >= 600) {
+            return true;
+        }
+
+        return false;
+    }
+
     public static int getOptimalColumnCount(float posterWidth) {
-        float displayWidth = getDisplaySize().widthPixels;
+        DisplayMetrics dm = getDisplayMetrics();
+        float displayWidth;
+        if (!isTablet()) {
+            displayWidth = dm.widthPixels;
+        } else {
+            displayWidth = dm.widthPixels / 5;
+        }
 
         return Math.max(Math.round(displayWidth / posterWidth), 1);
     }
 
-    private static DisplayMetrics getDisplaySize() {
+    private static DisplayMetrics getDisplayMetrics() {
         return Resources.getSystem().getDisplayMetrics();
     }
 }

@@ -1,15 +1,14 @@
 # Popular Movies
 
-This is the first project in Udacity's Android Developer Nanodegree. In Stage 1 the App contains the core experiences, like a Main Discrovery Screen, a Details View and Sort Settings.
-
-For more info about the project please check the Udacity [Implementation Guide](https://docs.google.com/document/d/1ZlN1fUsCSKuInLECcJkslIqvpKlP7jWL2TP9m6UiA6I/pub?embedded=true).
+This is the first & second project in Udacity's Android Developer Nanodegree. 
+In Stage 1 the App contains the core experiences, like a Main Discrovery Screen width a list of movies, a Details View of a selected movie and Sort Settings (Most Popular & Top Rated). Stage 2 expanded the functions by the possibility to view and play trailers, read reviews, mark a movie as a favorite (new sorting criteria: My Favorites) and added a tablet support.
 
 ## Getting Started
 
-The App uses an [The Movie Database](https://www.themoviedb.org/documentation/api) API. To build the App you have to replace the variable 'TMDbKeyProp' in gradle.properties with your own like below:
+The App uses an [The Movie Database](https://www.themoviedb.org/documentation/api) API. To build the App you have to replace the variable `TMDbKeyProp` in gradle.properties with your own like below:
 
 ```
-TMDbKeyProp=[YOUR_API_KEY]
+TMDbKeyProp=YOUR_API_KEY
 ```
 
 ## Libraries

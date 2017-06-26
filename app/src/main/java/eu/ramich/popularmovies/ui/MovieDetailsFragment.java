@@ -358,7 +358,10 @@ public class MovieDetailsFragment extends Fragment
     public void onClick(String trailerKey) {
         Uri trailerUri = NetworkUtils.buildTrailerUri(trailerKey);
         Intent trailerIntent = new Intent(Intent.ACTION_VIEW, trailerUri);
-        startActivity(trailerIntent);
+
+        if (trailerIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(trailerIntent);
+        }
     }
 
     @Override

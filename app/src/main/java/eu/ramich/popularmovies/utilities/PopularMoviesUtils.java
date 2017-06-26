@@ -72,16 +72,22 @@ public class PopularMoviesUtils {
         return false;
     }
 
-    public static int getOptimalColumnCount(float posterWidth) {
+    public static int getOptimalColumnCount() {
         DisplayMetrics dm = getDisplayMetrics();
-        float displayWidth;
-        if (!isTablet()) {
-            displayWidth = dm.widthPixels;
-        } else {
-            displayWidth = dm.widthPixels / 5;
-        }
 
-        return Math.max(Math.round(displayWidth / posterWidth), 1);
+        if (!isTablet()) {
+            if (dm.widthPixels < dm.heightPixels) {
+                return 2;
+            } else {
+                return 4;
+            }
+        } else {
+            if (dm.widthPixels < dm.heightPixels) {
+                return 1;
+            } else {
+                return 2;
+            }
+        }
     }
 
     private static DisplayMetrics getDisplayMetrics() {

@@ -46,6 +46,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
                         PopularMoviesUtils.getPosterWidth(true)).toString())
                 .placeholder(R.drawable.ic_image)
                 .into(holder.moviePoster);
+
+        if (PopularMoviesUtils.isTablet() && !MoviesFragment.IS_MOVIE_LOADED && position == 0) {
+            MoviesFragment.IS_MOVIE_LOADED = true;
+            int movieId = mCursor.getInt(MoviesFragment.INDEX_MOVIE_ID);
+            mClickHandler.onClick(movieId);
+        }
     }
 
     @Override

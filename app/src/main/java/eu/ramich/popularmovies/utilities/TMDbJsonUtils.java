@@ -11,7 +11,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.ramich.popularmovies.data.MovieContract;
+import eu.ramich.popularmovies.data.MovieContract.MovieEntry;
+import eu.ramich.popularmovies.data.MovieContract.MovieExtraEntry;
+import eu.ramich.popularmovies.data.MovieContract.ReviewEntry;
+import eu.ramich.popularmovies.data.MovieContract.TrailerEntry;
 import eu.ramich.popularmovies.data.PopularMoviesPreferences;
 
 public class TMDbJsonUtils {
@@ -22,13 +25,14 @@ public class TMDbJsonUtils {
     private static final String TMDB_STATUS_CODE = "status_code";
     private static final String TMDB_STATUS_MESSAGE = "status_message";
 
+    private static final String TMDB_ID = "id";
+
 
     public static List<ContentValues[]> getMovieContentValuesFromJson(Context context,
                                                                      String movieJsonStr,
                                                                      String sortOrder)
             throws JSONException {
 
-        final String TMDB_ID = "id";
         final String TMDB_TITLE = "title";
         final String TMDB_ORIGINAL_TITLE = "original_title";
         final String TMDB_ORIGINAL_LANGUAGE = "original_language";
@@ -58,42 +62,30 @@ public class TMDbJsonUtils {
             JSONObject movieData = jsonMovieArray.getJSONObject(i);
 
             int movieId = movieData.getInt(TMDB_ID);
-            String title = movieData.getString(TMDB_TITLE);
-            String originalTitle = movieData.getString(TMDB_ORIGINAL_TITLE);
-            String originalLanguage = movieData.getString(TMDB_ORIGINAL_LANGUAGE);
-            String releaseDate = movieData.getString(TMDB_RELEASE_DATE);
-            Double voteAvarage = movieData.getDouble(TMDB_VOTE_AVERAGE);
-            int voteCount = movieData.getInt(TMDB_VOTE_COUNT);
-            Double popularity = movieData.getDouble(TMDB_POPULARITY);
-            String overview = movieData.getString(TMDB_OVERVIEW);
-            String posterPath = movieData.getString(TMDB_POSTER_PATH);
-            String backdropPath = movieData.getString(TMDB_BACKDROP_PATH);
-
             if (sortOrder == null) sortOrder = PopularMoviesPreferences.getSortOrderKey(context);
-            String curTimestamp = PopularMoviesUtils.getCurrentTimestamp();
 
-            ContentValues movieValues = new ContentValues();
-            movieValues.put(MovieContract.MovieEntry.COLUMN_MOVIE_ID, movieId);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_TITLE, title);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_ORIGINAL_TITLE, originalTitle);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_ORIGINAL_LANGUAGE, originalLanguage);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_RELEASE_DATE, releaseDate);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_VOTE_AVERAGE, voteAvarage);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_VOTE_COUNT, voteCount);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_POPULARITY, popularity);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_OVERVIEW, overview);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_POSTER_PATH, posterPath);
-            movieValues.put(MovieContract.MovieEntry.COLUMN_BACKDROP_PATH, backdropPath);
+            ContentValues mV = new ContentValues();
+            mV.put(MovieEntry.COLUMN_MOVIE_ID, movieId);
+            mV.put(MovieEntry.COLUMN_TITLE, movieData.getString(TMDB_TITLE));
+            mV.put(MovieEntry.COLUMN_ORIGINAL_TITLE, movieData.getString(TMDB_ORIGINAL_TITLE));
+            mV.put(MovieEntry.COLUMN_ORIGINAL_LANGUAGE, movieData.getString(TMDB_ORIGINAL_LANGUAGE));
+            mV.put(MovieEntry.COLUMN_RELEASE_DATE, movieData.getString(TMDB_RELEASE_DATE));
+            mV.put(MovieEntry.COLUMN_VOTE_AVERAGE, movieData.getDouble(TMDB_VOTE_AVERAGE));
+            mV.put(MovieEntry.COLUMN_VOTE_COUNT, movieData.getInt(TMDB_VOTE_COUNT));
+            mV.put(MovieEntry.COLUMN_POPULARITY, movieData.getDouble(TMDB_POPULARITY));
+            mV.put(MovieEntry.COLUMN_OVERVIEW, movieData.getString(TMDB_OVERVIEW));
+            mV.put(MovieEntry.COLUMN_POSTER_PATH, movieData.getString(TMDB_POSTER_PATH));
+            mV.put(MovieEntry.COLUMN_BACKDROP_PATH, movieData.getString(TMDB_BACKDROP_PATH));
 
-            movieContentValues[i] = movieValues;
+            movieContentValues[i] = mV;
 
 
-            ContentValues movieExtraValues = new ContentValues();
-            movieExtraValues.put(MovieContract.MovieExtraEntry.COLUMN_MOVIE_ID, movieId);
-            movieExtraValues.put(MovieContract.MovieExtraEntry.COLUMN_SORT_ORDER, sortOrder);
-            movieExtraValues.put(MovieContract.MovieExtraEntry.COLUMN_CREATED, curTimestamp);
+            ContentValues mEV = new ContentValues();
+            mEV.put(MovieExtraEntry.COLUMN_MOVIE_ID, movieId);
+            mEV.put(MovieExtraEntry.COLUMN_SORT_ORDER, sortOrder);
+            mEV.put(MovieExtraEntry.COLUMN_CREATED, PopularMoviesUtils.getCurrentTimestamp());
 
-            movieExtraContentValues[i] = movieExtraValues;
+            movieExtraContentValues[i] = mEV;
         }
 
         moviesList.add(movieContentValues);
@@ -105,7 +97,6 @@ public class TMDbJsonUtils {
     public static ContentValues[] getVideoContentValuesFromJson(String videoJsonStr)
         throws JSONException {
 
-        final String TMDB_ID = "id";
         final String TMDB_ISO_639_1 = "iso_639_1";
         final String TMDB_ISO_3166_1 = "iso_3166_1";
         final String TMDB_KEY = "key";
@@ -129,28 +120,18 @@ public class TMDbJsonUtils {
         for (int i = 0; i < jsonVideoArray.length(); i++) {
             JSONObject videoData = jsonVideoArray.getJSONObject(i);
 
-            String videoId = videoData.getString(TMDB_ID);
-            String iso_639_1 = videoData.getString(TMDB_ISO_639_1);
-            String iso_3166_1 = videoData.getString(TMDB_ISO_3166_1);
-            String key = videoData.getString(TMDB_KEY);
-            String name = videoData.getString(TMDB_NAME);
-            String site = videoData.getString(TMDB_SITE);
-            int size = videoData.getInt(TMDB_SIZE);
-            String type = videoData.getString(TMDB_TYPE);
-            int movieId = videoJson.getInt(TMDB_ID);
+            ContentValues vV = new ContentValues();
+            vV.put(TrailerEntry.COLUMN_TRAILER_ID, videoData.getString(TMDB_ID));
+            vV.put(TrailerEntry.COLUMN_ISO_639_1, videoData.getString(TMDB_ISO_639_1));
+            vV.put(TrailerEntry.COLUMN_ISO_3166_1, videoData.getString(TMDB_ISO_3166_1));
+            vV.put(TrailerEntry.COLUMN_KEY, videoData.getString(TMDB_KEY));
+            vV.put(TrailerEntry.COLUMN_NAME, videoData.getString(TMDB_NAME));
+            vV.put(TrailerEntry.COLUMN_SITE, videoData.getString(TMDB_SITE));
+            vV.put(TrailerEntry.COLUMN_SIZE, videoData.getInt(TMDB_SIZE));
+            vV.put(TrailerEntry.COLUMN_TYPE, videoData.getString(TMDB_TYPE));
+            vV.put(TrailerEntry.COLUMN_MOVIE_ID, videoJson.getInt(TMDB_ID));
 
-            ContentValues videoValues = new ContentValues();
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_TRAILER_ID, videoId);
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_ISO_639_1, iso_639_1);
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_ISO_3166_1, iso_3166_1);
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_KEY, key);
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_NAME, name);
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_SITE, site);
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_SIZE, size);
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_TYPE, type);
-            videoValues.put(MovieContract.TrailerEntry.COLUMN_MOVIE_ID, movieId);
-
-            videoContentValues[i] = videoValues;
+            videoContentValues[i] = vV;
         }
 
         return videoContentValues;
@@ -159,7 +140,6 @@ public class TMDbJsonUtils {
     public static ContentValues[] getReviewContentValuesFromJson(String reviewJsonStr)
         throws JSONException {
 
-        final String TMDB_ID = "id";
         final String TMDB_AUTHOR = "author";
         final String TMDB_CONTENT = "content";
         final String TMDB_URL = "url";
@@ -179,20 +159,14 @@ public class TMDbJsonUtils {
         for (int i = 0; i < jsonReviewArray.length(); i++) {
             JSONObject reviewData = jsonReviewArray.getJSONObject(i);
 
-            String reviewId = reviewData.getString(TMDB_ID);
-            String author = reviewData.getString(TMDB_AUTHOR);
-            String content = reviewData.getString(TMDB_CONTENT);
-            String url = reviewData.getString(TMDB_URL);
-            int movieId = reviewJson.getInt(TMDB_ID);
+            ContentValues rV = new ContentValues();
+            rV.put(ReviewEntry.COLUMN_REVIEW_ID, reviewData.getString(TMDB_ID));
+            rV.put(ReviewEntry.COLUMN_AUTHOR, reviewData.getString(TMDB_AUTHOR));
+            rV.put(ReviewEntry.COLUMN_CONTENT, reviewData.getString(TMDB_CONTENT));
+            rV.put(ReviewEntry.COLUMN_URL, reviewData.getString(TMDB_URL));
+            rV.put(ReviewEntry.COLUMN_MOVIE_ID, reviewJson.getInt(TMDB_ID));
 
-            ContentValues reviewValues = new ContentValues();
-            reviewValues.put(MovieContract.ReviewEntry.COLUMN_REVIEW_ID, reviewId);
-            reviewValues.put(MovieContract.ReviewEntry.COLUMN_AUTHOR, author);
-            reviewValues.put(MovieContract.ReviewEntry.COLUMN_CONTENT, content);
-            reviewValues.put(MovieContract.ReviewEntry.COLUMN_URL, url);
-            reviewValues.put(MovieContract.ReviewEntry.COLUMN_MOVIE_ID, movieId);
-
-            reviewContentValues[i] = reviewValues;
+            reviewContentValues[i] = rV;
         }
 
         return reviewContentValues;

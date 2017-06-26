@@ -59,6 +59,7 @@ public class MoviesFragment extends Fragment
     public static final int INDEX_MOVIE_ID = 0;
     public static final int INDEX_POSTER_PATH = 1;
 
+    public static boolean IS_MOVIE_LOADED = false;
     private int mPosition = RecyclerView.NO_POSITION;
     private static final int ID_MOVIES_LOADER = 12;
 
@@ -78,12 +79,16 @@ public class MoviesFragment extends Fragment
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            mPosition = savedInstanceState.getInt("position");
+            IS_MOVIE_LOADED = savedInstanceState.getBoolean("is_movie_loaded");
+        }
+
         mMovieAdapter = new MovieAdapter(this);
         mRecyclerView.setAdapter(mMovieAdapter);
         mRecyclerView.setLayoutManager(
                 new GridLayoutManager(getActivity(),
-                        PopularMoviesUtils.getOptimalColumnCount(
-                                getResources().getDimension(R.dimen.poster_width))
+                        PopularMoviesUtils.getOptimalColumnCount()
                 )
         );
         mRecyclerView.setHasFixedSize(true);
@@ -107,14 +112,15 @@ public class MoviesFragment extends Fragment
         snackbar = Snackbar.make(getActivity().findViewById(R.id.rv_movies),
                 getString(R.string.sb_offline), Snackbar.LENGTH_INDEFINITE);
 
-        if (NetworkUtils.isNetworkStatusAvialable(getActivity())) showLoading();
-
         getActivity().getSupportLoaderManager().initLoader(ID_MOVIES_LOADER, null, this);
 
         PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .registerOnSharedPreferenceChangeListener(this);
 
-        PopularMoviesSyncUtils.initialize(getActivity());
+        if (NetworkUtils.isNetworkStatusAvialable(getActivity())) {
+            showLoading();
+            PopularMoviesSyncUtils.initialize(getActivity());
+        }
     }
 
     public void loadData() {
@@ -163,9 +169,10 @@ public class MoviesFragment extends Fragment
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mMovieAdapter.swapCursor(data);
-        if (mPosition == RecyclerView.NO_POSITION)
+        if (mPosition == RecyclerView.NO_POSITION) {
             mPosition = 0;
-        mRecyclerView.smoothScrollToPosition(mPosition);
+            mRecyclerView.smoothScrollToPosition(mPosition);
+        }
 
         if (!NetworkUtils.isNetworkStatusAvialable(getActivity())) {
             snackbar.setAction(getString(R.string.sb_dismiss), new View.OnClickListener() {
@@ -179,7 +186,8 @@ public class MoviesFragment extends Fragment
             if (snackbar.isShown()) snackbar.dismiss();
         }
 
-        if (data.getCount() != 0)
+        String sortOrder = PopularMoviesPreferences.getSortOrderKey(getActivity());
+        if (data.getCount() != 0 || sortOrder.equals(getString(R.string.sort_order__favorite_key)))
             showMovieDataView();
     }
 
@@ -246,9 +254,17 @@ public class MoviesFragment extends Fragment
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", mPosition);
+        outState.putBoolean("is_movie_loaded", IS_MOVIE_LOADED);
+    }
+
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (isAdded() && key.equals(getString(R.string.sort_order_key))) {
             mSortOption.setText(PopularMoviesPreferences.getSortOrderLabel(getActivity()));
+            mPosition = RecyclerView.NO_POSITION;
             getActivity().getSupportLoaderManager().restartLoader(ID_MOVIES_LOADER, null, this);
         }
     }
